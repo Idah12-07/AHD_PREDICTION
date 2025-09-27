@@ -5,9 +5,9 @@ import joblib
 # Load Model C
 model = joblib.load("ahd_model_C.pkl")
 
-st.set_page_config(page_title="ART Risk Intelligence", layout="centered")
+st.set_page_config(page_title="AHD DETECTION", layout="centered")
 
-st.title("🧠 ART Risk Intelligence")
+st.title("🧠 AHD DETECTION")
 st.markdown("Enter patient details below to assess risk of Advanced HIV Disease (AHD).")
 
 # Manual input fields
