@@ -28,6 +28,8 @@ vl = st.sidebar.number_input("Latest Viral Load (copies/ml)", min_value=0, max_v
 who_stage = st.sidebar.selectbox("Last WHO Stage", [1, 2, 3, 4])
 months_rx = st.sidebar.slider("Months of Prescription", 1, 12, 3)
 cd4_risk = st.sidebar.selectbox("CD4 Risk Category", ["Severe", "Moderate", "Normal"])
+sex = st.sidebar.selectbox("Sex", ["Female", "Male"])
+
 
 # ==========================
 # Feature engineering
@@ -46,6 +48,7 @@ cd4_risk_Normal = 1 if cd4_risk == "Normal" else 0
 Last_WHO_Stage_2 = 1 if who_stage == 2 else 0
 Last_WHO_Stage_3 = 1 if who_stage == 3 else 0
 Last_WHO_Stage_4 = 1 if who_stage == 4 else 0
+Sex_M = 1 if sex == "Male" else 0
 
 # Default flags for missing features
 Active_in_PMTCT_Missing = 0
@@ -58,11 +61,9 @@ input_data = np.array([[
     vl_missing, months_rx,
     cd4_risk_Moderate, cd4_risk_Normal, cd4_risk_Severe,
     Last_WHO_Stage_2, Last_WHO_Stage_3, Last_WHO_Stage_4,
-    Active_in_PMTCT_Missing, Cacx_Screening_Missing, Refill_Date_Missing
+    Active_in_PMTCT_Missing, Cacx_Screening_Missing, Refill_Date_Missing,
+    Sex_M
 ]])
-
-
-# ==========================
 # Main Page Layout
 # ==========================
 st.title("🧠 Advanced HIV Disease (AHD) Detection")
