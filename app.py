@@ -32,20 +32,35 @@ cd4_risk = st.sidebar.selectbox("CD4 Risk Category", ["Severe", "Moderate", "Nor
 # ==========================
 # Feature engineering
 # ==========================
-cd4_risk_severe = 1 if cd4_risk == "Severe" else 0
-cd4_risk_moderate = 1 if cd4_risk == "Moderate" else 0
-cd4_risk_normal = 1 if cd4_risk == "Normal" else 0
-
 bmi = weight / ((height / 100) ** 2)
 vl_suppressed = 1 if vl < 1000 else 0
 cd4_missing = 0 if cd4 > 0 else 1
 vl_missing = 0 if vl > 0 else 1
 
-# Feature vector (must match model input)
+# One-hot encode CD4 risk
+Predicted_CD4_Risk_Severe = 1 if cd4_risk == "Severe" else 0
+Predicted_CD4_Risk_Moderate = 1 if cd4_risk == "Moderate" else 0
+Predicted_CD4_Risk_Normal = 1 if cd4_risk == "Normal" else 0
+
+# One-hot encode WHO stage
+Last_WHO_Stage_2 = 1 if who_stage == 2 else 0
+Last_WHO_Stage_3 = 1 if who_stage == 3 else 0
+Last_WHO_Stage_4 = 1 if who_stage == 4 else 0
+
+# Default flags for missing features
+Active_in_PMTCT_Missing = 0
+Cacx_Screening_Missing = 0
+Refill_Date_Missing = 0
+
+# ==========================
+# Feature vector (20 features)
+# ==========================
 input_data = np.array([[
     age, weight, height, bmi, cd4, cd4_missing, vl, vl_suppressed,
-    vl_missing, who_stage, months_rx,
-    cd4_risk_moderate, cd4_risk_normal, cd4_risk_severe
+    vl_missing, months_rx,
+    Predicted_CD4_Risk_Moderate, Predicted_CD4_Risk_Normal, Predicted_CD4_Risk_Severe,
+    Last_WHO_Stage_2, Last_WHO_Stage_3, Last_WHO_Stage_4,
+    Active_in_PMTCT_Missing, Cacx_Screening_Missing, Refill_Date_Missing
 ]])
 
 # ==========================
