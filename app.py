@@ -18,6 +18,14 @@ cd4 = st.number_input("Latest CD4 Count", min_value=0, max_value=2000, value=350
 vl = st.number_input("Latest Viral Load (copies/ml)", min_value=0, max_value=500000, value=1000)
 who_stage = st.selectbox("Last WHO Stage", [1, 2, 3, 4])
 months_rx = st.slider("Months of Prescription", 1, 12, 3)
+# CD4 Risk Category (clinician selects based on CD4 count)
+cd4_risk = st.selectbox("CD4 Risk Category", ["Severe", "Moderate", "Normal"])
+
+# One-hot encode CD4 risk
+cd4_risk_severe = 1 if cd4_risk == "Severe" else 0
+cd4_risk_moderate = 1 if cd4_risk == "Moderate" else 0
+cd4_risk_normal = 1 if cd4_risk == "Normal" else 0
+
 
 # Derived features
 bmi = weight / ((height / 100) ** 2)
@@ -27,7 +35,9 @@ vl_missing = 0 if vl > 0 else 1
 
 # Feature vector (must match model input)
 input_data = np.array([[age, weight, height, bmi, cd4, cd4_missing, vl, vl_suppressed,
-                        vl_missing, who_stage, months_rx]])
+                        vl_missing, who_stage, months_rx,
+                        cd4_risk_moderate, cd4_risk_normal, cd4_risk_severe]])
+
 
 # Predict
 if st.button("Predict AHD Risk"):
