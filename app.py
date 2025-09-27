@@ -38,9 +38,9 @@ cd4_missing = 0 if cd4 > 0 else 1
 vl_missing = 0 if vl > 0 else 1
 
 # One-hot encode CD4 risk
-Predicted_CD4_Risk_Severe = 1 if cd4_risk == "Severe" else 0
-Predicted_CD4_Risk_Moderate = 1 if cd4_risk == "Moderate" else 0
-Predicted_CD4_Risk_Normal = 1 if cd4_risk == "Normal" else 0
+cd4_risk_Severe = 1 if cd4_risk == "Severe" else 0
+cd4_risk_Moderate = 1 if cd4_risk == "Moderate" else 0
+cd4_risk_Normal = 1 if cd4_risk == "Normal" else 0
 
 # One-hot encode WHO stage
 Last_WHO_Stage_2 = 1 if who_stage == 2 else 0
@@ -52,16 +52,15 @@ Active_in_PMTCT_Missing = 0
 Cacx_Screening_Missing = 0
 Refill_Date_Missing = 0
 
-# ==========================
-# Feature vector (20 features)
-# ==========================
+# Final input vector (20 features)
 input_data = np.array([[
     age, weight, height, bmi, cd4, cd4_missing, vl, vl_suppressed,
     vl_missing, months_rx,
-    Predicted_CD4_Risk_Moderate, Predicted_CD4_Risk_Normal, Predicted_CD4_Risk_Severe,
+    cd4_risk_Moderate, cd4_risk_Normal, cd4_risk_Severe,
     Last_WHO_Stage_2, Last_WHO_Stage_3, Last_WHO_Stage_4,
     Active_in_PMTCT_Missing, Cacx_Screening_Missing, Refill_Date_Missing
 ]])
+
 
 # ==========================
 # Main Page Layout
